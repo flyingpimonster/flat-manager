@@ -76,7 +76,9 @@ impl StorefrontInfo {
             return Err("Duplicate <id/> tag in appstream file".into());
         } else if id_tags.is_empty() {
             return Err("No <id/> tag found in appstream file".into());
-        } else if id_tags[0].text() != expected_appid {
+        } else if id_tags[0].text() != expected_appid
+            && id_tags[0].text() != format!("{}.desktop", expected_appid)
+        {
             return Err(format!(
                 "Expected app ID to be '{}', not '{}'",
                 expected_appid,
